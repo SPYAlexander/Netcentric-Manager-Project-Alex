@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Alex Task Manager</title>
+
+  <!-- Style Sheets -->
+  <link rel="stylesheet" href="csc3221.css">
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Favicon Links -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+  <link rel="manifest" href="/assets/site.webmanifest">
+</head>
+<body>
+  <div class="page-area">
+    <div id="headerDiv">
+      <h1>Alex Task Manager Web Application</h1>
+    </div>
+    <div id="bodyContent">
+      <div  id="inputContainer">
+        <h3>Add Item To List</h3>
+        <form id="inputForm">
+          <section>
+            <input type="text"
+            name="listitem"
+            id="listitem"
+            autocomplete="false"
+            />
+          </section>
+          <button type="submit" class="add-btn"><h5>Add</h5></button>
+          <!-- <button type="submit" class="del-btn">Delete</button> -->
+        </form>
+      </div>
+      <div id="responseContainer">
+        <h3>To-Do List</h3>
+        <div id="listForm">
+          <form id="modificationForm">
+            <div class="result"></div>
+            <div><button type="submit" class="del-btn"><h5>Delete Checked</h5></button></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="corehttp.js"></script>
+  <script src="scripts.js"></script>
+</body>
+</html>

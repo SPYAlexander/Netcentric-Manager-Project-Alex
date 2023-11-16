@@ -1,0 +1,156 @@
+html{
+    background-color: #A9D6E5;
+}
+
+.page-area {
+    text-align: center;
+}
+
+#headerDiv {
+    margin-top: 20px;
+    margin-bottom: 50px;
+    padding: 5px;
+    border-bottom: 5px solid #000000;
+} 
+
+#bodyContent {
+    background-color: lightgray;
+    border: 5px solid #000000;
+    border-radius: 5px;
+    padding: 25px;
+}
+
+h3 {
+    border-bottom: 4px solid #000000;
+}
+
+#inputForm {
+    display:flex;
+}
+
+
+#inputForm section{
+    flex: 75%;
+}
+
+#listitem{ /* styles the text input section */
+    border: 2px solid #012A4A;
+    background-color: #f0f0f0;
+    border-radius: 3px;
+}
+
+form button{
+    flex: 25%;
+    background-color: #f0f0f0;
+    border: 3px solid #012A4A;
+    border-radius: 3px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+form button.edit{
+    flex: 1%;
+    background-color: #f0f0f0;
+    border: 3px solid #012A4A;
+    border-radius: 3px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+
+
+form button:hover{
+    background-color: #808080;
+    border: 2px solid #012A4A;
+}
+
+input {
+    width: 95%;
+}
+
+/* Media used to separate between a single column and a double column layout for the list items */
+
+@media screen and (max-width: 1000px){
+    .toDoUL{
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+        columns: 1;
+    }
+}
+
+@media screen and (min-width: 1001px){
+    .toDoUL{
+        display: flex;
+        flex-direction: column;
+        list-style-type: none;
+    }
+}
+
+
+
+.toDoUL li button{
+    border: 2px solid #012A4A;
+    border-radius: 2px;
+    align-self: center;
+    background-color: #ffffff;
+    width: 100%;
+    height: 100%;
+}
+
+.toDoUL li button:hover{
+    background-color: #808080;
+    border: 2px solid #012A4A;
+}
+
+.toDoUL li button h5{
+    margin: 5px;
+}
+
+/*
+    working on trying to get a strikethrough of text that would go through an entire div rather than just the text
+    currently will use the text-decoration property, as it will suffice for now
+*/
+
+.finished{
+    text-decoration: line-through;
+}
+
+.unfinished{
+    text-decoration: none;
+}
+
+.result{
+    width: 100%;
+}
+
+.items{
+    display: flex;
+}
+
+.listItem{
+    flex: 5;
+}
+
+.listBox{
+    flex: 1;
+}
+
+.add-btn{
+    padding-bottom: 5px;
+    height: 40px;
+}
+
+.del-btn{
+    padding-bottom: 5px;
+    height: 40px;
+}
+
+input[type=text]{
+    height: 40px;
+    border: 4px solid #012A4A;
+}
+
+.edit{
+    width: 100px;
+}
