@@ -1,87 +1,108 @@
-// Modules
+// Import necessary modules and setup Express
 const express = require("express");
 const connectDB = require("./connect");
 
+// Set the port number and the application name
 const port = 5000;
 const appName = "Task Manager";
 const app = express();
 
-// Middleware
-app.use(express.static("./Client")); // sends over the client once someone first accesses the application
+// Serve static files from the "Client" directory
+app.use(express.static("./Client"));
+
+// Enable parsing of JSON data in the request body
 app.use(express.json());
 
-// Data model (schema)
+// Import the Task model
 const tasks = require("./Task");
 const Task = require("./Task");
 
-// get all the tasks
-app.get("/api", async (req,res)=>{
+// Define a route to handle GET requests to retrieve tasks
+app.get("/api", async (req, res) => {
   try {
-    const task = await tasks.find(); 
-    res.status(200).json({task});
-  } catch {
-    res.status(500).json({msg: error});
-  };
+    // Retrieve all tasks from the database
+    const task = await tasks.find();
+    // Send a JSON response with the retrieved tasks
+    res.status(200).json({ task });
+  } catch (error) {
+    // If an error occurs, send a 500 Internal Server Error response with the error message
+    res.status(500).json({ msg: error });
+  }
 });
 
-
-//add tasks
-app.post("/api", async (req, res)=>{
-  try{
+// Handle POST requests to create a new task
+app.post("/api", async (req, res) => {
+  try {
+    // Create a new task using the data from the request body
     const task = await Task.create(req.body);
     
-    res.status(200).json({task});
-  } catch {
-    res.status(500).json({msg: error});
-  };
+    // Send a JSON response with the created task
+    res.status(200).json({ task });
+  } catch (error) {
+    // If an error occurs, send a 500 Internal Server Error response with the error message
+    res.status(500).json({ msg: error });
+  }
 });
 
-//Delete tasks
-app.delete("/api/:id", async (req, res)=>{
-  try{
-    const task = []; // array to be filled for response
-    let tmpString = req.params.id; // pulls the string of ids from the parameters
+// Handle DELETE requests to delete one or more tasks by ID
+app.delete("/api/:id", async (req, res) => {
+  try {
+    // Initialize an array to store deleted tasks
+    const task = [];
+
+    // Extract the ID string from the request parameters
+    let tmpString = req.params.id; 
     let stillGoing = true; 
-    while(stillGoing){ // loops through the string and pulls out the ids
+
+    // Loop to handle multiple IDs separated by commas
+    while (stillGoing) { 
       let tmpPos = tmpString.indexOf(",");
-      if(tmpPos != -1){ // handles chunking up a string if there are multiple ids in it
+      if (tmpPos != -1) { 
+        // Extract ID and delete the corresponding task
         tmpId = tmpString.substring(0, (tmpPos));
-        task.push = await Task.findByIdAndDelete(tmpId); // deletes the item with the given id
+        task.push = await Task.findByIdAndDelete(tmpId); 
         tmpString = tmpString.substring((tmpPos + 1));
-      }
-      else{ // handles the deletion of the last item (or single item if only one provided)
+      } else { 
+        // Delete the last ID in the string
         task.push = await Task.findByIdAndDelete(tmpString);
-        await Task.findByIdAndDelete(tmpString);
-        stillGoing = false; // breaks out of the loop
+        stillGoing = false; 
       }
     }
 
-    res.status(200).json({task});
-  } catch {
-    res.status(500).json({msg: error});
-  };
-});
-
-//modify tasks (used mainly for completion of tasks)
-app.put("/api", async (req, res)=>{
-  try{
-    const task = await Task.findByIdAndUpdate(req.body._id, {name: req.body.name, completed: req.body.completed});
-    res.status(200).json({task});
-  }
-  catch{
-    res.status(500).json({msg: error});
+    // Send a JSON response with the deleted tasks
+    res.status(200).json({ task });
+  } catch (error) {
+    // If an error occurs, send a 500 Internal Server Error response with the error message
+    res.status(500).json({ msg: error });
   }
 });
 
+// Handle PUT requests to update a task
+app.put("/api", async (req, res) => {
+  try {
+    // Update the task with the specified ID using the data from the request body
+    const task = await Task.findByIdAndUpdate(req.body._id, { name: req.body.name, completed: req.body.completed });
+    // Send a JSON response with the updated task
+    res.status(200).json({ task });
+  } catch (error) {
+    // If an error occurs, send a 500 Internal Server Error response with the error message
+    res.status(500).json({ msg: error });
+  }
+});
 
-// Connect to the database and start the appl server
+// Function to start the application
 const start = async () => {
   try {
+    // Connect to the database
     await connectDB();
-    app.listen(port, () => {console.log(`${appName} is listening on port ${port}.`)});
+    // Start the Express app and listen on the specified port
+    app.listen(port, () => {
+      console.log(`${appName} is listening on port ${port}.`);
+    });
   } catch (error) {
     console.log(error);
-  };
+  }
 }
 
+// Call the start function to begin the application
 start();
